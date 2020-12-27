@@ -1,15 +1,18 @@
 import requests
 
-pattern = 'http://wttr.in/{}'
+url= 'http://wttr.in/{}'
 
-dict = {
-    "Лондон?nTqmM&lang=ru": "",
-    "Шереметьево?nTqm&lang=ru": "",
-    "Череповец?nTqm&lang=ru": "",
+key= {
+    "Лондон": "",
+    "Шереметьево": "",
+    "Череповец": "",
 }
+value={"?nTqmM":"",
+     "lang":"ru",}
 
-for city in dict:
-    url = pattern.format(city)
-    response = requests.get(url)
+for city in key:
+    response = url.format(city)
+    response = requests.get(response,params=value)
     response.raise_for_status()
     print(response.text)
+
