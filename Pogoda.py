@@ -2,7 +2,7 @@ import requests
 
 url = 'http://wttr.in/{}'
 
-cities = ["Лондон", "Шереметьево", "Череповец", ]
+cities = ["Лондон", "Шереметьево", "Казань", ]
 
 value = {"nTqmM": "",
          "lang": "ru", }
