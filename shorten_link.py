@@ -11,15 +11,17 @@ def shorten_link(token, user_input):
     params = {"Authorization": token}
     json_data = {"long_url": user_input}
     bitlink = requests.post(api, headers=params, json=json_data)
-    bitlink.raise_for_status()
+    try:
+        bitlink.raise_for_status()
+    except requests.exceptions.HTTPError:
+        print("Доступ не получен! возможно не правильно введена ссылка")
     bitlink = bitlink.json()
-    return bitlink['id']
+    try:
+        return bitlink['id']
+    except KeyError:
+        print("id не получен!")
 
 
-try:
-    bitlink = shorten_link(token, user_input)
-except requests.exceptions.HTTPError:
-    print("Введите корректную ссылку!!!")
 
 print("Битлинк", shorten_link(token, user_input))
 bitlink=shorten_link(token, user_input)
@@ -34,13 +36,14 @@ def count_clicks(token, link):
     header = {"Authorization": token}
     url=api_summary.format(link)
     count = requests.get(url, headers=header, params=params)
-    count.raise_for_status()
+    try:
+        count.raise_for_status()
+    except requests.exceptions.HTTPError:
+        print("Не правильная ссылка")
     count = count.json()
     return count["total_clicks"]
 
-try:
-  clicks_count = count_clicks(token, bitlink)
-except requests.exceptions.HTTPError:
-    print("Не удалось посчитать ")
+
+
 
 print("По  повашей ссылке прошли", count_clicks(token,bitlink),"раз(а)")
