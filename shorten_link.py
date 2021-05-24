@@ -2,7 +2,7 @@ import requests
 
 api_summary = "https://api-ssl.bitly.com/v4/bitlinks/{}/clicks/summary"
 token = "d16b72aaa86f41d9e9c595b36e81f2676a8b56ec"
-api = "https://api-ssl.bitly.com/v4/shorten"
+api_shorten= "https://api-ssl.bitly.com/v4/shorten"
 user_input = input("Введите ссылку: ")
 link=("Введите ссылку для проверки")
 
@@ -10,7 +10,7 @@ link=("Введите ссылку для проверки")
 def shorten_link(token, user_input):
     params = {"Authorization": token}
     json_data = {"long_url": user_input}
-    bitlink = requests.post(api, headers=params, json=json_data)
+    bitlink = requests.post(api_shorten, headers=params, json=json_data)
     try:
         bitlink.raise_for_status()
     except requests.exceptions.HTTPError:
